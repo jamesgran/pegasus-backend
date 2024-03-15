@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { crearClientes } from "../controllers/cliente.controller";
+import { actualizarCliente, actualizarEstado, crearClientes, eliminarCliente, getClienteById, getClientes } from "../controllers/cliente.controller";
 import { validarCampos } from "../middlewares/validarCampos";
 
 const router = Router();
@@ -18,5 +18,9 @@ validarCampos
 ], 
 
 crearClientes); 
-
+router.get('/', getClientes)
+router.get("/:id" ,getClienteById);
+router.put("/:id" ,actualizarCliente);
+router.delete("/:id" , eliminarCliente);
+router.put("/estado/:id" , actualizarEstado);
 export default router;

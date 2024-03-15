@@ -19,3 +19,94 @@ export const   crearClientes = async (req: Request, res: Response) => {
       })
     }
   };
+
+  export const getClientes = async (req: Request, res: Response) => {
+    try {
+      //busca todos los clientes
+      const clientes = await ClienteModel.find();
+      res.status(200).json({
+        ok: true,
+        clientes,
+      })
+    } catch (error) {
+      res.status(400).json({
+        ok: false,
+        msg: "Error al consultar "
+      })
+      
+    }
+  };
+  
+  export const getClienteById = async (req: Request, res: Response) => {
+    try {
+      
+      const id = req.params.id;
+      //busca todos los clientes
+      const clientes = await ClienteModel.findById({_id: id})//el guion es añadido por mongo
+      res.status(200).json({
+        ok: true,
+        clientes,
+      })
+    } catch (error) {
+      res.status(400).json({
+        ok: false,
+        msg: "Error al consultar "
+      })
+      
+    }
+  };
+  
+  export const actualizarCliente = async (req: Request, res: Response) => {
+    try {
+      //id del cliente
+      const id = req.params.id;
+      const { body } = req; //desestructuirar objeto
+      const clienteActualizado = await ClienteModel.findByIdAndUpdate(id, body, {new:true})//el new:true sirve para que en la respuesta se muestre el nuevo valor. se puede omitir
+      res.status(200).json({
+        ok: true,
+        clienteActualizado,
+      })
+    } catch (error) {
+      res.status(400).json({
+        ok: false,
+        msg: "Error al consultar "
+      })
+    }
+  };
+  export const eliminarCliente = async (req: Request, res: Response) => {
+    try {
+      //id del cliente
+      const id = req.params.id;
+      
+      const clienteEliminado = await ClienteModel.findByIdAndDelete({_id:id})//el new:true sirve para que en la respuesta se muestre el nuevo valor. se puede omitir
+      res.status(200).json({
+        ok: true,
+        clienteEliminado,
+      })
+    } catch (error) {
+      res.status(400).json({
+        ok: false,
+        msg: "Error al eliminar "
+      })
+      
+    }
+  };
+  
+  
+  export const actualizarEstado = async (req: Request, res: Response) => {
+    try {
+      //id del cliente
+      const id = req.params.id;
+      
+      const clienteActualizado = await ClienteModel.findByIdAndUpdate(id, {estado:false}, {new:true})//el new:true sirve para que en la respuesta se muestre el nuevo valor. se puede omitir
+      res.status(200).json({
+        ok: true,
+        clienteActualizado,
+      })
+    } catch (error) {
+      res.status(400).json({
+        ok: false,
+        msg: "Error al consultar "
+      })
+    }
+  };

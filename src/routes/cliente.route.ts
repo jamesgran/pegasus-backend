@@ -2,6 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 import { actualizarCliente, actualizarEstado, crearClientes, eliminarCliente, getClienteById, getClientes } from "../controllers/cliente.controller";
 import { validarCampos } from "../middlewares/validarCampos";
+import validateJWT from "../middlewares/validateJWT";
 
 const router = Router();
  

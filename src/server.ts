@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import { dbConnection } from "./database/connection";
 import  clienteRoutes  from "./routes/cliente.route"
 import cors from "cors";
+import  usuarioRoutes  from "./routes/usuario.route"
 
 export class Server {
   private app: Application;
@@ -34,12 +35,14 @@ export class Server {
 
   middleWares(){
     this.app.use(cors())
+    
     //lecture del body
     this.app.use(express.json()) //todo lo que envie por defecto lo convierte en json
   }
 
   routes(): void {
     this.app.use(this.apiPaths.cliente, clienteRoutes)
+    this.app.use(this.apiPaths.usuario, usuarioRoutes)
   }
 
 

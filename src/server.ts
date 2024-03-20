@@ -3,6 +3,7 @@ import { dbConnection } from "./database/connection";
 import  clienteRoutes  from "./routes/cliente.route"
 import cors from "cors";
 import  usuarioRoutes  from "./routes/usuario.route"
+import  authRoutes  from "./routes/auth.route"
 
 export class Server {
   private app: Application;
@@ -43,6 +44,7 @@ export class Server {
   routes(): void {
     this.app.use(this.apiPaths.cliente, clienteRoutes)
     this.app.use(this.apiPaths.usuario, usuarioRoutes)
+    this.app.use(this.apiPaths.auth, authRoutes)
   }
 
 

@@ -8,7 +8,7 @@ export const login = async (req:Request, res: Response) => {
     const {login: email,password} = req.body;
     try {
         //verificar si el login 
-        const usuario = await UsuarioModel.findOne({email: email})
+        const usuario = await UsuarioModel.findOne({login: email})
         if (!usuario){
             return res.status(401).json({
                 ok:false,
@@ -72,11 +72,11 @@ export const renovarToken = async (req: CustomRequest, res: Response) => {
 ///////////////////
 
 export const olvidoContrasena = async (req: Request, res: Response) => {
-    const { login,  noDocumento } = req.body;
+    const { login: email,  noDocumento } = req.body;
   
     try {
       const existeUsuario = await UsuarioModel.findOne({
-        login,
+        login: email,
         noDocumento,
       });
   
@@ -93,7 +93,7 @@ export const olvidoContrasena = async (req: Request, res: Response) => {
         // Generar Token
         const token = await generateJWT(
           id,
-          login,
+          email,
           "1H",
           process.env.JWT_SECRET_PASS
         );

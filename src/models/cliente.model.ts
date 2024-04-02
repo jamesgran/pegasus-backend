@@ -1,4 +1,6 @@
 import { Model, Schema, model } from "mongoose";
+const usuario = require("./usuario.model");
+
 
 export   const ClienteSchema = new Schema({
   nombre: { type: String, required: true},
@@ -9,6 +11,7 @@ export   const ClienteSchema = new Schema({
   noDocumento: {type: String, required: true},
   estado: {type: Boolean, required:true, default: true},
   createdAt: {type: Date, default:Date.now() },
+  usuario_id: {type: Schema.Types.ObjectId, ref: 'usuario'}
   
 });
  export const ClienteModel: Model<any> = model("Cliente", ClienteSchema)

@@ -5,10 +5,12 @@ import generateJWT from "../helpers/jwt";
 import { CustomRequest } from "../middlewares/validateJWT";
 
 export const login = async (req:Request, res: Response) => {
-    const {login: email,password} = req.body;
+    const {email,password} = req.body;
     try {
         //verificar si el login 
-        const usuario = await UsuarioModel.findOne({login: email})
+        console.log(email)
+        const usuario = await UsuarioModel.findOne({email})
+        console.log(usuario)
         if (!usuario){
             return res.status(401).json({
                 ok:false,
@@ -69,7 +71,7 @@ export const renovarToken = async (req: CustomRequest, res: Response) => {
 
 
 }
-///////////////////
+//////////////////
 
 export const olvidoContrasena = async (req: Request, res: Response) => {
     const { login: email,  noDocumento } = req.body;

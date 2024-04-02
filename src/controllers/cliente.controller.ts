@@ -1,11 +1,18 @@
 import { Request, Response } from "express";
 import { ClienteModel } from "../models/cliente.model";
 
+import { renovarToken } from "./auth.controller";
+
 export const   crearClientes = async (req: Request, res: Response) => {
     const { body } = req;
+    
+    
     try {
       const clienteNuevo = new ClienteModel(body);
       const clienteCreado = await clienteNuevo.save();
+
+      
+
       res.status(200).json({
         ok: true,
         msg: "Cliente Creado",
@@ -21,9 +28,15 @@ export const   crearClientes = async (req: Request, res: Response) => {
   };
 
   export const getClientes = async (req: Request, res: Response) => {
+   
     try {
       //busca todos los clientes
-      const clientes = await ClienteModel.find();
+      const clientes = await ClienteModel.find()
+      .populate({
+        path: 'usuario_id',
+        select: 'nombre rol estado'
+      })
+
       res.status(200).json({
         ok: true,
         clientes,
@@ -31,18 +44,20 @@ export const   crearClientes = async (req: Request, res: Response) => {
     } catch (error) {
       res.status(400).json({
         ok: false,
-        msg: "Error al consultar "
+        msg: "Error al consultar 2",
+    
+
       })
       
     }
   };
   
-  export const getClienteById = async (req: Request, res: Response) => {
+  export const getClientesByUsuario = async (req: Request, res: Response) => {
     try {
       
       const id = req.params.id;
       //busca todos los clientes
-      const clientes = await ClienteModel.findById({_id: id})//el guion es añadido por mongo
+      const clientes = await ClienteModel.find({usuario_id: id})//el guion es añadido por mongo
       res.status(200).json({
         ok: true,
         clientes,

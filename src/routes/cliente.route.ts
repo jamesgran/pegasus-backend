@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { actualizarCliente, actualizarEstado, crearClientes, eliminarCliente, getClienteById, getClientes } from "../controllers/cliente.controller";
+import { actualizarCliente, actualizarEstado, crearClientes, eliminarCliente, getClientes, getClientesByUsuario } from "../controllers/cliente.controller";
 import { validarCampos } from "../middlewares/validarCampos";
 import validateJWT from "../middlewares/validateJWT";
 
 const router = Router();
  
 router.post("/", 
-//validateJWT,
+validateJWT,
 
 [
 check("nombre", "El nombre es obligatorio").not().isEmpty(),
@@ -21,7 +21,7 @@ validarCampos
 
 crearClientes); 
 router.get('/', validateJWT,  getClientes)
-router.get("/:id" ,validateJWT, getClienteById);
+router.get("/:id" ,validateJWT, getClientesByUsuario);
 router.put("/:id" ,validateJWT,  actualizarCliente);
 router.delete("/:id" ,validateJWT,  eliminarCliente);
 router.put("/estado/:id" , validateJWT, actualizarEstado);

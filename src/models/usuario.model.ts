@@ -1,4 +1,5 @@
 import { Model, Schema, model } from "mongoose";
+import { ClienteModel } from "./cliente.model";
 
 const UsuarioSchema = new Schema ({
     nombre: {type: String, required: true},
@@ -9,5 +10,6 @@ const UsuarioSchema = new Schema ({
     rol: {type: String, required: true, default: "admin"},
     estado: {type: Boolean, required: true, default: true},
     createdAt: {type: Date, default: Date.now()},  
+    
 });
 export const UsuarioModel: Model<any>= model("usuario", UsuarioSchema)

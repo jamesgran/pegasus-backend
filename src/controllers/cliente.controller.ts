@@ -70,6 +70,26 @@ export const   crearClientes = async (req: Request, res: Response) => {
       
     }
   };
+  export const getClientesByDocumento = async (req: Request, res: Response) => {
+    try {
+      
+      const noDocumento = req.params.id;
+      
+      //busca todos los clientes
+      const clientes = await ClienteModel.find({noDocumento: noDocumento})//el guion es añadido por mongo
+      
+      res.status(200).json({
+        ok: true,
+        clientes,
+      })
+    } catch (error) {
+      res.status(400).json({
+        ok: false,
+        msg: "Error al consultar "
+      })
+      
+    }
+  };
   
   export const actualizarCliente = async (req: Request, res: Response) => {
     try {

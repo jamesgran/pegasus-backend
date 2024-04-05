@@ -8,9 +8,9 @@ export const login = async (req:Request, res: Response) => {
     const {email,password} = req.body;
     try {
         //verificar si el login 
-        console.log(email)
+        
         const usuario = await UsuarioModel.findOne({email})
-        console.log(usuario)
+        
         if (!usuario){
             return res.status(401).json({
                 ok:false,
